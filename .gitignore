@@ -26,14 +26,11 @@ pnpm-debug.log*
 # ============================
 
 # Build outputs
-Backend/bin/
-Backend/obj/
 bin/
 obj/
 
 # Visual Studio cache folder
 .vs/
-Backend/.vs/
 *.user
 *.suo
 
@@ -55,6 +52,3 @@ appsettings.json
 # MacOS / Windows junk
 .DS_Store
 Thumbs.db
-
-# Solution files (keep if needed)
-# *.sln
