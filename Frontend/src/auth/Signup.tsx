@@ -12,7 +12,8 @@ export default function Signup() {
         e.preventDefault();
 
         try {
-            const response=await axios.post("https://movieapp-backend-beazfacnfmcxfsb7.southeastasia-01.azurewebsites.net/api/users/signup",
+            const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+            const response=await axios.post(`${API_URL}/api/users/signup`,
                 {
                     name,email,passwordHash:password
                 }
