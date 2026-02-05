@@ -16,6 +16,8 @@
         public string passwordHash { get; set; }
         public string? Image { get; set; }
 
+        public DateTime DateJoined { get; set; } = DateTime.UtcNow;
+
         public UserRole role { get; set; } = UserRole.Customer;
     }
 }
