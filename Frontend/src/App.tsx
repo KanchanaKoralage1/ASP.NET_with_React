@@ -3,6 +3,10 @@ import Signup from './auth/Signup'
 import Login from './auth/Login'
 import UserManagement from './pages/admin/UserManagement'
 import ProfilePage from './pages/customer/ProfilePage'
+import ProtectedRoute from './component/ProtectedRoute'
+import MainLayout from './component/MainLayout'
+import AdminSidebar from './pages/admin/AdminSidebar'
+
 
 
 function App() {
@@ -10,13 +14,32 @@ function App() {
 
   return (
     
-    <Routes>
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/usermanagement" element={<UserManagement />} />
-      <Route path="/profilepage" element={<ProfilePage />} />
-    </Routes>
-   
+    <MainLayout>
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* Admin Page */}
+        <Route
+          path="/admin/usermanagement"
+          element={
+            <ProtectedRoute allowedRole="Admin">
+              <UserManagement />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Customer Page */}
+        <Route
+          path="/profilepage"
+          element={
+            <ProtectedRoute allowedRole="Customer">
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </MainLayout>
   )
 }
 
