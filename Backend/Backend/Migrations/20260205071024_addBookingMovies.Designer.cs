@@ -4,6 +4,7 @@ using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    partial class MovieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260205071024_addBookingMovies")]
+    partial class addBookingMovies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,14 +46,13 @@ namespace Backend.Migrations
                     b.Property<int>("Seats")
                         .HasColumnType("int");
 
-                    b.Property<int>("ShowTimeId")
-                        .HasColumnType("int");
+                    b.Property<string>("ShowTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MovieId");
-
-                    b.HasIndex("ShowTimeId");
 
                     b.ToTable("Bookings");
                 });
@@ -153,15 +155,7 @@ namespace Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Backend.Model.ShowTime", "ShowTime")
-                        .WithMany("Bookings")
-                        .HasForeignKey("ShowTimeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Movie");
-
-                    b.Navigation("ShowTime");
                 });
 
             modelBuilder.Entity("Backend.Model.ShowTime", b =>
@@ -169,7 +163,7 @@ namespace Backend.Migrations
                     b.HasOne("Backend.Model.Movie", "Movie")
                         .WithMany("ShowTimes")
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Movie");
@@ -178,11 +172,6 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.Model.Movie", b =>
                 {
                     b.Navigation("ShowTimes");
-                });
-
-            modelBuilder.Entity("Backend.Model.ShowTime", b =>
-                {
-                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }
