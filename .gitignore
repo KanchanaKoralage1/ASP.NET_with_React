@@ -38,8 +38,8 @@ obj/
 .idea/
 
 # ASP.NET settings (optional)
-appsettings.Development.json
-appsettings.json
+# appsettings.Development.json
+# appsettings.json
 
 # ============================
 # OS / Editor
