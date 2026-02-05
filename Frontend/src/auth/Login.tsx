@@ -11,12 +11,13 @@ export default function Login() {
     e.preventDefault();
 
     try {
+      const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
       const response = await axios.post(
-        "https://localhost:7267/api/users/login",
+        `${API_URL}/api/users/login`,
         {
           email,
           passwordHash: password,
-        },
+        }
       );
 
       localStorage.setItem("token", response.data.token);
