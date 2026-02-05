@@ -1,14 +1,66 @@
-import './App.css'
+import { BrowserRouter,Routes, Route } from 'react-router-dom'
+import Signup from './auth/Signup'
+import Login from './auth/Login'
+import UserManagement from './pages/admin/UserManagement'
+import ProfilePage from './pages/customer/ProfilePage'
+import ProtectedRoute from './component/ProtectedRoute'
+import MainLayout from './component/MainLayout'
+import AdminSidebar from './pages/admin/AdminSidebar'
+import AdminMoviePage from './pages/admin/AdminMoviePage'
+import Movie from './pages/Movie'
+
+
 
 function App() {
   
 
   return (
-    <div>
-    <h1 className="text-3xl font-bold underline text-blue-500">
-    Hello world!
-  </h1>
-    </div>
+    
+    <MainLayout>
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* Admin Page */}
+        <Route
+          path="/admin/usermanagement"
+          element={
+            <ProtectedRoute allowedRole="Admin">
+              <UserManagement />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/moviemanagement"
+          element={
+            <ProtectedRoute allowedRole="Admin">
+              <AdminMoviePage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Customer Page */}
+        <Route
+          path="/profilepage"
+          element={
+            <ProtectedRoute allowedRole="Customer">
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/movie"
+          element={
+            <ProtectedRoute allowedRole="Customer">
+              <Movie />
+            </ProtectedRoute>
+          }
+        />
+
+      </Routes>
+    </MainLayout>
   )
 }
 
