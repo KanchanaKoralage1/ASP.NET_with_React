@@ -60,7 +60,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173")
+            policy.WithOrigins("https://lemon-mud-0cabd8200.6.azurestaticapps.net")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });

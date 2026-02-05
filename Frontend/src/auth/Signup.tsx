@@ -12,12 +12,13 @@ export default function Signup() {
         e.preventDefault();
 
         try {
-            const response=await axios.post("https://localhost:7267/api/users/signup",
+            const response=await axios.post("https://movieapp-backend-beazfacnfmcxfsb7.southeastasia-01.azurewebsites.net/api/users/signup",
                 {
                     name,email,passwordHash:password
                 }
             );
 
+            //https://localhost:7267
             alert("Signup Successful");
             console.log("Response", response.data)
 
