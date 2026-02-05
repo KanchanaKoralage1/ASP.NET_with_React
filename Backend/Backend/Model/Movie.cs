@@ -12,6 +12,8 @@
 
         public DateTime addDate { get; set; }
 
+        public decimal TicketPrice { get; set; }
+
         public List<ShowTime> ShowTimes { get; set; } = new List<ShowTime>();
 
         public int seatCount{get;set;}

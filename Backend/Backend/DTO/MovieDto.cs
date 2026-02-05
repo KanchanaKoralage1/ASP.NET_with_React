@@ -1,4 +1,5 @@
 ﻿using Backend.Model;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.DTO
 {
@@ -7,6 +8,8 @@ namespace Backend.DTO
         public string Name { get; set; }
 
         public string? Image { get; set; }
+        
+        public IFormFile? ImageFile { get; set; }
 
         public MovieStatus movieStatus { get; set; } = MovieStatus.Showing;
 
@@ -15,5 +18,7 @@ namespace Backend.DTO
         public List<ShowTime> ShowTimes { get; set; } = new List<ShowTime>();
 
         public int seatCount { get; set; }
+
+        public decimal TicketPrice { get; set; }
     }
 }

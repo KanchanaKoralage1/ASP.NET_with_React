@@ -6,6 +6,7 @@ import ProfilePage from './pages/customer/ProfilePage'
 import ProtectedRoute from './component/ProtectedRoute'
 import MainLayout from './component/MainLayout'
 import AdminSidebar from './pages/admin/AdminSidebar'
+import AdminMoviePage from './pages/admin/AdminMoviePage'
 
 
 
@@ -25,6 +26,15 @@ function App() {
           element={
             <ProtectedRoute allowedRole="Admin">
               <UserManagement />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/moviemanagement"
+          element={
+            <ProtectedRoute allowedRole="Admin">
+              <AdminMoviePage />
             </ProtectedRoute>
           }
         />

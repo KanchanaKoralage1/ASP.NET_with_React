@@ -7,7 +7,7 @@ export default function AdminSidebar() {
   const menuItems = [
     { name: "Dashboard", path: "/admin/dashboard" },
     { name: "User Management", path: "/admin/usermanagement" },
-    { name: "Movies", path: "/admin/movies" },
+    { name: "Movies", path: "/admin/moviemanagement" },
     { name: "Bookings", path: "/admin/bookings" },
   ];
 

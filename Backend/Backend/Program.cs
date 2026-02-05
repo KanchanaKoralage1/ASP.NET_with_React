@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -69,6 +70,14 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
 
+app.UseStaticFiles(); // serve wwwroot by default
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "images")
+    ),
+    RequestPath = "/images"
+});
 
 app.UseHttpsRedirection();
 
