@@ -7,6 +7,7 @@ import ProtectedRoute from './component/ProtectedRoute'
 import MainLayout from './component/MainLayout'
 import AdminSidebar from './pages/admin/AdminSidebar'
 import AdminMoviePage from './pages/admin/AdminMoviePage'
+import Movie from './pages/Movie'
 
 
 
@@ -48,6 +49,16 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/movie"
+          element={
+            <ProtectedRoute allowedRole="Customer">
+              <Movie />
+            </ProtectedRoute>
+          }
+        />
+
       </Routes>
     </MainLayout>
   )

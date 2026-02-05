@@ -111,7 +111,7 @@ export default function AdminMovieAddUpdate({
         }
       });
 
-      // ✅ EDIT MODE
+      //  EDIT MODE
       if (selectedMovie) {
         await axios.put(
           `https://localhost:7267/api/movie/${selectedMovie.id}`,
@@ -127,7 +127,7 @@ export default function AdminMovieAddUpdate({
         alert("Movie Updated Successfully ✅");
       }
 
-      // ✅ ADD MODE
+      //  ADD MODE
       else {
         await axios.post(
           "https://localhost:7267/api/movie/addmovie",
@@ -147,7 +147,7 @@ export default function AdminMovieAddUpdate({
       onClose();
     } catch (error) {
       console.log("Movie Save Error", error);
-      alert("Something went wrong ❌");
+      alert("Something went wrong ");
     }
   };
 
@@ -160,7 +160,7 @@ export default function AdminMovieAddUpdate({
 
         {/* Header */}
         <h2 className="text-2xl font-bold mb-4 text-gray-800">
-          {selectedMovie ? "✏️ Edit Movie" : "➕ Add Movie"}
+          {selectedMovie ? " Edit Movie" : " Add Movie"}
         </h2>
 
         {/* Movie Name */}
