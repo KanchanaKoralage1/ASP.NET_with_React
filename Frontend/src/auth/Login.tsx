@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
 
     const[email,setEmail]=useState('');
     const[password,setPassword]=useState('');
+    const navigate = useNavigate();
+    
 
     const handleLogin=async(e:React.FormEvent)=>
     {
@@ -16,6 +19,8 @@ export default function Login() {
             })
 
             alert("Login Successful");
+            localStorage.setItem("token", response.data.token);
+            navigate('/profilepage');
             console.log("Response", response.data)
 
         } catch (error) {
