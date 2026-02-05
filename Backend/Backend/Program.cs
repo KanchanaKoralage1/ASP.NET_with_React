@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.IO;
 
 
 
@@ -71,10 +72,13 @@ var app = builder.Build();
 app.MapGet("/", () => "Hello World!");
 
 app.UseStaticFiles(); // serve wwwroot by default
+
+var imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "images");
+Directory.CreateDirectory(imagesPath);
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "images")
+        imagesPath
     ),
     RequestPath = "/images"
 });
