@@ -12,7 +12,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:8080
       # Add your SQL Server connection string here
-      - ConnectionStrings__DefaultConnection=Server=YOUR_SQL_SERVER;Database=YOUR_DB;User Id=YOUR_USER;Password=YOUR_PASSWORD;TrustServerCertificate=True;
+      - ConnectionStrings__DefaultConnection=Server=tcp:ticketapp-sql-server.database.windows.net,1433;Initial Catalog=MovieDb;Persist Security Info=False;User ID=sqladmin;Password=kayapaKO#123;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
     restart: unless-stopped
     networks:
       - ticketapp-network
