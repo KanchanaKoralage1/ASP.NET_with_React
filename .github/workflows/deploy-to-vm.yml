@@ -1,0 +1,25 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🚀 Deploy to Azure VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: 20.212.19.81
+          username: azureuser
+          key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/ASP.NET_with_React
+            git pull origin main
+            docker-compose down
+            docker-compose up -d --build
+            echo "✅ Deployment successful!"
+            docker ps
