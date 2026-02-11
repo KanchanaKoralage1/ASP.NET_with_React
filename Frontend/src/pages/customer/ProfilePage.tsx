@@ -17,7 +17,9 @@ export default function ProfilePage() {
       try {
 
         var token = localStorage.getItem("token");
-        var response = await axios.get("https://localhost:7267/api/userprofile/me",
+        //var response = await axios.get("https://localhost:7267/api/userprofile/me",
+        const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+        var response = await axios.get(`${API_URL}/api/userprofile/me`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -43,7 +45,9 @@ export default function ProfilePage() {
 
     try {
       var token = localStorage.getItem("token");
-      await axios.put("https://localhost:7267/api/userprofile/edituser",
+      //await axios.put("https://localhost:7267/api/userprofile/edituser",
+      const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+      await axios.put(`${API_URL}/api/userprofile/edituser`,
         {
           name,
           email,

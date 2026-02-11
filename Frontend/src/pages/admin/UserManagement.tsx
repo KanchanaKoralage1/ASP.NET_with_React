@@ -17,7 +17,9 @@ export default function UserManagement() {
     const fetchUsers=async()=>
     {
         try {
-            const response=await axios.get("https://localhost:7267/api/userprofile/list")
+            //const response=await axios.get("https://localhost:7267/api/userprofile/list")
+            const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+            const response=await axios.get(`${API_URL}/api/userprofile/list`)
             setUsers(response.data);
 
         } catch (error) {

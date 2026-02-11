@@ -60,9 +60,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.WithOrigins("https://lemon-mud-0cabd8200.6.azurestaticapps.net")
+            policy.WithOrigins(
+                "http://20.212.19.81",
+                "http://localhost:5173",
+                "https://lemon-mud-0cabd8200.6.azurestaticapps.net")
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .AllowCredentials();
         });
 });
 
@@ -83,7 +87,7 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/images"
 });
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseCors("AllowReactApp");
 
