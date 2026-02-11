@@ -35,9 +35,9 @@ export default function NavBar() {
             <Link to="/mybookings" className="hover:text-blue-600 transition">
               Bookings
             </Link>
-             <Link to="/movie" className="hover:text-blue-600 transition">
+             {/* <Link to="/movie" className="hover:text-blue-600 transition">
               Movies
-            </Link>
+            </Link> */}
           </>
         )}
       </div>

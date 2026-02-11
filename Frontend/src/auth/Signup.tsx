@@ -19,7 +19,6 @@ export default function Signup() {
                 }
             );
 
-            //https://localhost:7267
             alert("Signup Successful");
             console.log("Response", response.data)
 
@@ -32,42 +31,72 @@ export default function Signup() {
 
   return (
 
-    <div className='bg-gray-100 flex justify-center min-h-screen'>
-        <form onSubmit={handleSignup} className='bg-white p-8 rounded-2xl drop-shadow-lg w-[400px] h-[600px] mt-20'>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-200 px-4">
+    
+    <form
+      onSubmit={handleSignup}
+      className="bg-white w-full max-w-md p-10 rounded-3xl shadow-xl border border-gray-100"
+    >
+      {/* Title */}
+      <h1 className="text-center text-4xl font-extrabold text-gray-800 mb-8">
+        Create Account 
+      </h1>
 
-            <h1 className='text-center mb-6 font-bold text-3xl p-8'>Create Account</h1>
+      {/* Name */}
+      <label className="block text-sm font-semibold text-gray-600 mb-2">
+        Name
+      </label>
+      <input
+        type="text"
+        placeholder="Enter your name"
+        className="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition mb-5"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
 
-            <label className=''>Name</label>
+      {/* Email */}
+      <label className="block text-sm font-semibold text-gray-600 mb-2">
+        Email
+      </label>
+      <input
+        type="email"
+        placeholder="usermail@gmail.com"
+        className="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition mb-5"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
 
-            <input type='text' 
-            placeholder='Enter Your Name' 
-            className='w-full border p-3 rounded-lg mb-4'
-            value={name}
-            onChange={(e)=>setName(e.target.value)}
-            />
-            <label className=''>Email</label>
-            <input type='email' 
-            placeholder='usermail@gmail.com' 
-            className='w-full border p-3 rounded-lg mb-4'
-            value={email}
-            onChange={(e)=>setEmail(e.target.value)}
-            />
-            <label className=''>Password</label>
-            <input type='password' 
-            placeholder='Enter your password' 
-            className='w-full border p-3 rounded-lg mb-4'
-            value={password}
-            onChange={(e)=>setPassword(e.target.value)}
-            />
-            <button 
-            type='submit'
-            className='bg-green-600 w-full rounded-lg p-3 mt-5 drop-shadow-2xl text-white font-bold hover:bg-green-800'>
-                Signup
-            </button>
+      {/* Password */}
+      <label className="block text-sm font-semibold text-gray-600 mb-2">
+        Password
+      </label>
+      <input
+        type="password"
+        placeholder="Enter your password"
+        className="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition mb-6"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
 
-            <p className='mt-5 text-center p-3'>Already have an Account ? <a href="/login">Login</a></p>
-        </form>
-      
-    </div>
+      {/* Button */}
+      <button
+        type="submit"
+        className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold text-lg shadow-md hover:opacity-90 hover:scale-[1.02] transition duration-300"
+      >
+        Signup
+      </button>
+
+      {/* Footer */}
+      <p className="mt-6 text-center text-gray-600 text-sm">
+        Already have an account?{" "}
+        <a
+          href="/login"
+          className="text-blue-600 font-semibold hover:underline"
+        >
+          Login
+        </a>
+      </p>
+    </form>
+  </div>
   )
 }

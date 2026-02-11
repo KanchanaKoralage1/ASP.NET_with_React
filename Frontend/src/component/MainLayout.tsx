@@ -19,7 +19,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <div>
       <NavBar />
-      <div className="p-6">{children}</div>
+      <div className="">{children}</div>
     </div>
   );
 }
