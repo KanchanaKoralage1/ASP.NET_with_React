@@ -62,6 +62,7 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins(
                 "http://20.212.19.81",
+                "https://20.212.19.81",
                 "http://localhost:5173"
                 )
                   .AllowAnyHeader()
@@ -87,7 +88,7 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/images"
 });
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseCors("AllowReactApp");
 
