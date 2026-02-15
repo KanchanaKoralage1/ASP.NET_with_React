@@ -19,6 +19,7 @@ export default function ProfilePage() {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
+        const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
         const response = await axios.get(`${API_URL}/api/userprofile/me`, {
           headers: {
             Authorization: `Bearer ${token}`,

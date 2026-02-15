@@ -62,8 +62,8 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins(
                 "http://20.212.19.81",
-                "http://localhost:5173",
-                "https://lemon-mud-0cabd8200.6.azurestaticapps.net")
+                "http://localhost:5173"
+                )
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials();
