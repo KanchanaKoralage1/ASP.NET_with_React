@@ -84,6 +84,7 @@ export default function ProfilePage() {
       formData.append("ImageFile", imageFile);
     }
 
+    const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
     const response = await axios.put(
       `${API_URL}/api/userprofile/edituser`,
       formData,
