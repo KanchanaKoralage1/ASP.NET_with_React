@@ -13,7 +13,7 @@ export default function ProfilePage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState("");
 
-  const API_URL = (import.meta.env.VITE_API_URL ?? "http://localhost:5175") as string;
+  const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
 
   useEffect(() => {
     const fetchProfile = async () => {
