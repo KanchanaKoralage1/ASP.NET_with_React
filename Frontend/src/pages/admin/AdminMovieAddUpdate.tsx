@@ -113,8 +113,9 @@ export default function AdminMovieAddUpdate({
 
       //  EDIT MODE
       if (selectedMovie) {
+        const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
         await axios.put(
-          `https://localhost:7267/api/movie/${selectedMovie.id}`,
+          `${API_URL}/api/movie/${selectedMovie.id}`,
           formData,
           {
             headers: {
@@ -129,8 +130,9 @@ export default function AdminMovieAddUpdate({
 
       //  ADD MODE
       else {
+        const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
         await axios.post(
-          "https://localhost:7267/api/movie/addmovie",
+        `${API_URL}/api/movie/addmovie`,
           formData,
           {
             headers: {

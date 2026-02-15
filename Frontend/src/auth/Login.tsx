@@ -24,9 +24,9 @@ export default function Login() {
       localStorage.setItem("role", response.data.role);
 
       if (response.data.role === "Admin") {
-        navigate("/admin/usermanagement");
+        navigate("/adminsidebar");
       } else {
-        navigate("/profilepage");
+        navigate("/movies");
       }
 
       console.log("Response", response.data);

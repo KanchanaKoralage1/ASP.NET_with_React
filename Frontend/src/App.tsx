@@ -1,4 +1,4 @@
-import { BrowserRouter,Routes, Route } from 'react-router-dom'
+import { BrowserRouter,Routes, Route, Navigate } from 'react-router-dom'
 import Signup from './auth/Signup'
 import Login from './auth/Login'
 import UserManagement from './pages/admin/UserManagement'
@@ -22,6 +22,16 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         {/* Admin Page */}
+
+        <Route
+          path="/adminsidebar"
+          element={
+            <ProtectedRoute allowedRole="Admin">
+              <AdminSidebar />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/admin/usermanagement"
           element={
@@ -51,13 +61,15 @@ function App() {
         />
 
         <Route
-          path="/movie"
+          path="/movies"
           element={
-            <ProtectedRoute allowedRole="Customer">
+            
               <Movie />
-            </ProtectedRoute>
+            
           }
         />
+
+        <Route path="*" element={<Navigate to="/movies" replace />} />
 
       </Routes>
     </MainLayout>

@@ -15,8 +15,9 @@ export default function AdminMoviePage() {
     try {
       const token = localStorage.getItem("token");
 
+      const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
       const res = await axios.get(
-        "https://localhost:7267/api/movie/allmovies",
+        `${API_URL}/api/movie/allmovies`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

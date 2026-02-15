@@ -23,7 +23,8 @@ namespace Backend.Controller
 
         //get all movies (both admin, customer)
 
-        [Authorize(Roles ="Admin,Customer")]
+        //[Authorize(Roles ="Admin,Customer")]
+        [AllowAnonymous]
         [HttpGet("allmovies")]
         public async Task<IActionResult> getAllMovies()
         {
@@ -208,5 +209,7 @@ namespace Backend.Controller
             await _db.SaveChangesAsync();
             return Ok(new { message = "Movie deleted successfully" });
         }
+
+        
     }
 }
