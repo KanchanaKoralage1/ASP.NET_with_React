@@ -53,7 +53,7 @@ export default function Movie() {
   // Fetch all movies - NO AUTHENTICATION REQUIRED
   const fetchMovies = async () => {
     try {
-      const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+      //const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
       const response = await axios.get(`${API_URL}/api/movie/allmovies`);
       console.log("Fetched movies:", response.data);
       setMovies(response.data);
