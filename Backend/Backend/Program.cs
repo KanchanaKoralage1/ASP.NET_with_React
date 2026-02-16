@@ -76,6 +76,9 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
 
+
+app.UseCors("AllowReactApp");
+
 app.UseStaticFiles(); // serve wwwroot by default
 
 var imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "Images");
@@ -90,7 +93,7 @@ app.UseStaticFiles(new StaticFileOptions
 
 //app.UseHttpsRedirection();
 
-app.UseCors("AllowReactApp");
+
 
 app.UseAuthentication();
 app.UseAuthorization();
