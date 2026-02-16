@@ -16,38 +16,41 @@ export default function ProfilePage() {
   const API_URL = import.meta.env.VITE_API_URL || "http://20.212.19.81:5000";
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(`${API_URL}/api/userprofile/me`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+  const fetchProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${API_URL}/api/userprofile/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        console.log("User data:", response.data); // Debug log
-        console.log("Image path:", response.data.image); // Debug log
+      console.log("User data:", response.data);
+      console.log("Image path:", response.data.image);
 
-        setUser(response.data);
-        setName(response.data.name);
-        setEmail(response.data.email);
-        setPhoneNumber(response.data.phoneNumber || "");
-        setImage(response.data.image || "");
-        
-        // Construct full image URL
-        if (response.data.image) {
-          const fullImageUrl = `${API_URL}${response.data.image}`;
-          console.log("Full image URL:", fullImageUrl); // Debug log
-          setImagePreview(fullImageUrl);
-        }
-      } catch (error) {
-        console.error("Profile Load Error:", error);
-      } finally {
-        setLoading(false);
+      setUser(response.data);
+      setName(response.data.name);
+      setEmail(response.data.email);
+      setPhoneNumber(response.data.phoneNumber || "");
+      setImage(response.data.image || "");
+      
+      // Construct full image URL with leading slash
+      if (response.data.image) {
+        const imagePath = response.data.image.startsWith('/') 
+          ? response.data.image 
+          : `/${response.data.image}`;
+        const fullImageUrl = `${API_URL}${imagePath}`;
+        console.log("Full image URL:", fullImageUrl);
+        setImagePreview(fullImageUrl);
       }
-    };
-    fetchProfile();
-  }, [API_URL]);
+    } catch (error) {
+      console.error("Profile Load Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchProfile();
+}, [API_URL]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

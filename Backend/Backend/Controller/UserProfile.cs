@@ -109,7 +109,7 @@ namespace Backend.Controller
                     await profileDto.ImageFile.CopyToAsync(stream);
                 }
 
-                user.Image = $"/Images/uploads/profile/{fileName}";
+                user.Image = $"Images/uploads/profile/{fileName}";
             }
 
             await _db.SaveChangesAsync();
