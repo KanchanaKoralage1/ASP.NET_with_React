@@ -147,7 +147,7 @@ namespace Backend.Controller
                     await movieDto.ImageFile.CopyToAsync(stream);
                 }
 
-                movie.Image = $"Images/uploads/movies/{fileName}";
+                movie.Image = $"/Images/uploads/movies/{fileName}";
             }
             else if (!string.IsNullOrEmpty(movieDto.Image))
             {
