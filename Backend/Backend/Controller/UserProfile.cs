@@ -88,7 +88,7 @@ namespace Backend.Controller
                 // Delete old image if exists
                 if (!string.IsNullOrEmpty(user.Image))
                 {
-                    var oldFilePath = Path.Combine(_env.ContentRootPath, "images", user.Image.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+                    var oldFilePath = Path.Combine(_env.ContentRootPath, "Images", user.Image.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
                     if (System.IO.File.Exists(oldFilePath))
                     {
                         System.IO.File.Delete(oldFilePath);
@@ -96,7 +96,7 @@ namespace Backend.Controller
                 }
 
                 // Create uploads/profile folder if it doesn't exist
-                var uploadsFolder = Path.Combine(_env.ContentRootPath, "images", "uploads", "profile");
+                var uploadsFolder = Path.Combine(_env.ContentRootPath, "Images", "uploads", "profile");
                 Directory.CreateDirectory(uploadsFolder);
 
                 // Generate unique filename
@@ -109,7 +109,7 @@ namespace Backend.Controller
                     await profileDto.ImageFile.CopyToAsync(stream);
                 }
 
-                user.Image = $"/images/uploads/profile/{fileName}";
+                user.Image = $"/Images/uploads/profile/{fileName}";
             }
 
             await _db.SaveChangesAsync();

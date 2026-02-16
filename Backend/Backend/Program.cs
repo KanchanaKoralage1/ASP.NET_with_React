@@ -78,14 +78,14 @@ app.MapGet("/", () => "Hello World!");
 
 app.UseStaticFiles(); // serve wwwroot by default
 
-var imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "images");
+var imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "Images");
 Directory.CreateDirectory(imagesPath);
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
         imagesPath
     ),
-    RequestPath = "/images"
+    RequestPath = "/Images"
 });
 
 //app.UseHttpsRedirection();

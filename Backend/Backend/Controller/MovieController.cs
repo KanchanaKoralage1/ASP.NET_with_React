@@ -60,7 +60,7 @@ namespace Backend.Controller
                 }
 
                 // Create uploads folder if it doesn't exist
-                var uploadsFolder = Path.Combine(_env.ContentRootPath, "images", "uploads", "movies");
+                var uploadsFolder = Path.Combine(_env.ContentRootPath, "Images", "uploads", "movies");
                 Directory.CreateDirectory(uploadsFolder);
 
                 // Generate unique filename
@@ -73,7 +73,7 @@ namespace Backend.Controller
                     await movieDto.ImageFile.CopyToAsync(stream);
                 }
 
-                imagePath = $"/images/uploads/movies/{fileName}";
+                imagePath = $"/Images/uploads/movies/{fileName}";
             }
 
             var movie = new Movie
@@ -126,7 +126,7 @@ namespace Backend.Controller
                 // Delete old image file if it exists
                 if (!string.IsNullOrEmpty(movie.Image))
                 {
-                    var oldFilePath = Path.Combine(_env.ContentRootPath, "images", movie.Image.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+                    var oldFilePath = Path.Combine(_env.ContentRootPath, "Images", movie.Image.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
                     if (System.IO.File.Exists(oldFilePath))
                     {
                         System.IO.File.Delete(oldFilePath);
@@ -134,7 +134,7 @@ namespace Backend.Controller
                 }
 
                 // Create uploads folder if it doesn't exist
-                var uploadsFolder = Path.Combine(_env.ContentRootPath, "images", "uploads", "movies");
+                var uploadsFolder = Path.Combine(_env.ContentRootPath, "Images", "uploads", "movies");
                 Directory.CreateDirectory(uploadsFolder);
 
                 // Generate unique filename
@@ -147,7 +147,7 @@ namespace Backend.Controller
                     await movieDto.ImageFile.CopyToAsync(stream);
                 }
 
-                movie.Image = $"/images/uploads/movies/{fileName}";
+                movie.Image = $"Images/uploads/movies/{fileName}";
             }
             else if (!string.IsNullOrEmpty(movieDto.Image))
             {
@@ -188,7 +188,7 @@ namespace Backend.Controller
             // Delete associated image file if it exists
             if (!string.IsNullOrEmpty(movie.Image))
             {
-                var imagePath = Path.Combine(_env.ContentRootPath, "images", movie.Image.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+                var imagePath = Path.Combine(_env.ContentRootPath, "Images", movie.Image.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
                 if (System.IO.File.Exists(imagePath))
                 {
                     System.IO.File.Delete(imagePath);
