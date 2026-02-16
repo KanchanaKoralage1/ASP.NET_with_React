@@ -36,7 +36,8 @@ export default function Movie() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState<MovieType | null>(null);
 
-  const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+  //const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+  const API_URL = import.meta.env.VITE_API_URL || "http://20.212.19.81:5000";
   const navigate = useNavigate();
 
   // Check if user is logged in
