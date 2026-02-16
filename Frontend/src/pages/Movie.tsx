@@ -200,13 +200,28 @@ export default function Movie() {
                 <div className="relative h-72 overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300">
                   {movie.image ? (
                     <>
-                      <img
+                      {/* <img
                         src={`${API_URL}${movie.image.startsWith("/") ? movie.image : `/${movie.image}`}`}
                         alt={movie.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         onError={(e) => {
                           (e.target as HTMLImageElement).src =
                             "https://via.placeholder.com/400x600/4F46E5/FFFFFF?text=No+Image";
+                        }}
+                      /> */}
+
+                      <img
+                        src={`${API_URL}${movie.image.startsWith("/") ? movie.image : `/${movie.image}`}`}
+                        alt={movie.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        onLoad={() =>
+                          console.log(`✅ Loaded: ${API_URL}${movie.image}`)
+                        }
+                        onError={(e) => {
+                          const failedUrl = `${API_URL}${movie.image.startsWith("/") ? movie.image : `/${movie.image}`}`;
+                          console.error(`❌ Failed to load: ${failedUrl}`);
+                          (e.target as HTMLImageElement).src =
+                            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect width='400' height='600' fill='%234F46E5'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24' fill='white'%3ENo Image%3C/text%3E%3C/svg%3E";
                         }}
                       />
                       {/* Gradient Overlay */}
