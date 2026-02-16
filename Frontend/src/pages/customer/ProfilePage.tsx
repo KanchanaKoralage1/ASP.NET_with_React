@@ -13,44 +13,50 @@ export default function ProfilePage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState("");
 
-  const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+  const API_URL = import.meta.env.VITE_API_URL || "http://20.212.19.81:5000";
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        //const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
         const response = await axios.get(`${API_URL}/api/userprofile/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
+        console.log("User data:", response.data); // Debug log
+        console.log("Image path:", response.data.image); // Debug log
+
         setUser(response.data);
         setName(response.data.name);
         setEmail(response.data.email);
         setPhoneNumber(response.data.phoneNumber || "");
         setImage(response.data.image || "");
-        setImagePreview(response.data.image ? `${API_URL}${response.data.image}` : "");
+        
+        // Construct full image URL
+        if (response.data.image) {
+          const fullImageUrl = `${API_URL}${response.data.image}`;
+          console.log("Full image URL:", fullImageUrl); // Debug log
+          setImagePreview(fullImageUrl);
+        }
       } catch (error) {
-        console.log("Profile Load Error:", error);
+        console.error("Profile Load Error:", error);
       } finally {
         setLoading(false);
       }
     };
     fetchProfile();
-  }, []);
+  }, [API_URL]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
         alert("File size must be less than 5MB");
         return;
       }
 
-      // Validate file type
       const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
       if (!allowedTypes.includes(file.type)) {
         alert("Only JPG, PNG, and GIF files are allowed");
@@ -59,7 +65,6 @@ export default function ProfilePage() {
 
       setImageFile(file);
       
-      // Create preview
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
@@ -69,51 +74,53 @@ export default function ProfilePage() {
   };
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const token = localStorage.getItem("token");
-    
-    // Create FormData for file upload
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("phoneNumber", phoneNumber);
-    
-    if (imageFile) {
-      formData.append("ImageFile", imageFile);
-    }
-
-    //const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
-    const response = await axios.put(
-      `${API_URL}/api/userprofile/edituser`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          // REMOVED: 'Content-Type': 'multipart/form-data' - Let browser set it automatically
-        },
+    try {
+      const token = localStorage.getItem("token");
+      
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("phoneNumber", phoneNumber);
+      
+      if (imageFile) {
+        formData.append("ImageFile", imageFile);
       }
-    );
 
-    alert("Profile Updated Successfully!");
-    
-    // Update local state with new data
-    if (response.data.user) {
-      setUser(response.data.user);
-      setImage(response.data.user.image || "");
-      setImagePreview(response.data.user.image ? `${API_URL}${response.data.user.image}` : "");
+      const response = await axios.put(
+        `${API_URL}/api/userprofile/edituser`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("Update response:", response.data); // Debug log
+
+      alert("Profile Updated Successfully!");
+      
+      if (response.data.user) {
+        setUser(response.data.user);
+        setImage(response.data.user.image || "");
+        
+        if (response.data.user.image) {
+          const fullImageUrl = `${API_URL}${response.data.user.image}`;
+          console.log("Updated image URL:", fullImageUrl); // Debug log
+          setImagePreview(fullImageUrl);
+        }
+      }
+      
+      setImageFile(null);
+    } catch (error: any) {
+      console.error("Update Error:", error);
+      alert(error.response?.data?.message || "Update Failed");
     }
-    
-    setImageFile(null);
-  } catch (error: any) {
-    console.log("Update Error:", error);
-    alert(error.response?.data?.message || "Update Failed");
-  }
-};
+  };
 
   const handleCancel = () => {
-    // Reset to original values
     setName(user.name);
     setEmail(user.email);
     setPhoneNumber(user.phoneNumber || "");
@@ -159,10 +166,25 @@ export default function ProfilePage() {
                     src={imagePreview}
                     alt="Profile"
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      console.error("Image failed to load:", imagePreview);
+                      // Show default user icon on error
+                      (e.target as HTMLImageElement).style.display = 'none';
+                    }}
+                    onLoad={() => {
+                      console.log("Image loaded successfully:", imagePreview);
+                    }}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
                     <User className="text-gray-400" size={48} />
+                  </div>
+                )}
+                
+                {/* Fallback User Icon (shown if image fails) */}
+                {imagePreview && (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <User className="text-gray-400" size={48} style={{ display: 'none' }} id="fallback-icon" />
                   </div>
                 )}
               </div>
@@ -188,7 +210,7 @@ export default function ProfilePage() {
             {/* Upload Info */}
             <p className="text-xs text-gray-500 text-center">
               {imageFile ? (
-                <span className="text-blue-600 font-medium flex items-center gap-1">
+                <span className="text-blue-600 font-medium flex items-center gap-1 justify-center">
                   <Upload size={14} />
                   {imageFile.name}
                 </span>
