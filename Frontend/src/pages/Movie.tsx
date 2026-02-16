@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import BookNowPage from "../pages/customer/BookNowPage"; 
-import { TvMinimalPlay, Search, Calendar, Users, DollarSign, Clock, Star } from "lucide-react";
+import BookNowPage from "../pages/customer/BookNowPage";
+import {
+  TvMinimalPlay,
+  Search,
+  Calendar,
+  Users,
+  DollarSign,
+  Clock,
+  Star,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface ShowTime {
@@ -45,7 +53,7 @@ export default function Movie() {
       navigate("/login", { state: { from: "/movies", movieId: movie.id } });
       return;
     }
-    
+
     setSelectedMovie(movie);
     setIsBookingOpen(true);
   };
@@ -82,7 +90,10 @@ export default function Movie() {
         <div className="text-center">
           <div className="relative">
             <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600 mx-auto mb-4"></div>
-            <TvMinimalPlay className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-blue-600" size={24} />
+            <TvMinimalPlay
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-blue-600"
+              size={24}
+            />
           </div>
           <p className="text-gray-600 font-medium">Loading amazing movies...</p>
         </div>
@@ -102,7 +113,8 @@ export default function Movie() {
             </h1>
           </div>
           <p className="text-center text-blue-100 text-lg max-w-2xl mx-auto">
-            Discover the latest blockbusters and upcoming releases. Book your tickets now!
+            Discover the latest blockbusters and upcoming releases. Book your
+            tickets now!
           </p>
         </div>
       </div>
@@ -113,7 +125,10 @@ export default function Movie() {
           {/* Search Bar */}
           <div className="flex justify-center">
             <div className="relative w-full max-w-2xl">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <Search
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+                size={20}
+              />
               <input
                 type="text"
                 placeholder="Search for movies..."
@@ -166,8 +181,12 @@ export default function Movie() {
           <div className="text-center py-20">
             <div className="inline-block p-8 bg-white rounded-3xl shadow-xl">
               <TvMinimalPlay className="mx-auto mb-4 text-gray-400" size={64} />
-              <p className="text-gray-500 text-xl font-medium">No movies found</p>
-              <p className="text-gray-400 mt-2">Try adjusting your search or filter</p>
+              <p className="text-gray-500 text-xl font-medium">
+                No movies found
+              </p>
+              <p className="text-gray-400 mt-2">
+                Try adjusting your search or filter
+              </p>
             </div>
           </div>
         ) : (
@@ -182,13 +201,12 @@ export default function Movie() {
                   {movie.image ? (
                     <>
                       <img
-                      
-                        src={`${API_URL}${movie.image}`}
+                        src={`${API_URL}${movie.image.startsWith("/") ? movie.image : `/${movie.image}`}`}
                         alt={movie.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = 
-                            'https://via.placeholder.com/400x600/4F46E5/FFFFFF?text=No+Image';
+                          (e.target as HTMLImageElement).src =
+                            "https://via.placeholder.com/400x600/4F46E5/FFFFFF?text=No+Image";
                         }}
                       />
                       {/* Gradient Overlay */}
@@ -216,8 +234,13 @@ export default function Movie() {
                   {/* Rating Badge (decorative) */}
                   <div className="absolute top-4 left-4">
                     <div className="flex items-center gap-1 bg-yellow-400/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
-                      <Star className="text-yellow-900 fill-yellow-900" size={14} />
-                      <span className="text-yellow-900 font-bold text-sm">4.5</span>
+                      <Star
+                        className="text-yellow-900 fill-yellow-900"
+                        size={14}
+                      />
+                      <span className="text-yellow-900 font-bold text-sm">
+                        4.5
+                      </span>
                     </div>
                   </div>
                 </div>
