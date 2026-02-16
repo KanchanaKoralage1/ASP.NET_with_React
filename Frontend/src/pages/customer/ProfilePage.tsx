@@ -77,51 +77,55 @@ export default function ProfilePage() {
   };
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const token = localStorage.getItem("token");
-      
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("email", email);
-      formData.append("phoneNumber", phoneNumber);
-      
-      if (imageFile) {
-        formData.append("ImageFile", imageFile);
-      }
-
-      const response = await axios.put(
-        `${API_URL}/api/userprofile/edituser`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log("Update response:", response.data); // Debug log
-
-      alert("Profile Updated Successfully!");
-      
-      if (response.data.user) {
-        setUser(response.data.user);
-        setImage(response.data.user.image || "");
-        
-        if (response.data.user.image) {
-          const fullImageUrl = `${API_URL}${response.data.user.image}`;
-          console.log("Updated image URL:", fullImageUrl); // Debug log
-          setImagePreview(fullImageUrl);
-        }
-      }
-      
-      setImageFile(null);
-    } catch (error: any) {
-      console.error("Update Error:", error);
-      alert(error.response?.data?.message || "Update Failed");
+  try {
+    const token = localStorage.getItem("token");
+    
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("phoneNumber", phoneNumber);
+    
+    if (imageFile) {
+      formData.append("ImageFile", imageFile);
     }
-  };
+
+    const response = await axios.put(
+      `${API_URL}/api/userprofile/edituser`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log("Update response:", response.data);
+
+    alert("Profile Updated Successfully!");
+    
+    if (response.data.user) {
+      setUser(response.data.user);
+      setImage(response.data.user.image || "");
+      
+      if (response.data.user.image) {
+        // FIX: Add leading slash if not present
+        const imagePath = response.data.user.image.startsWith('/') 
+          ? response.data.user.image 
+          : `/${response.data.user.image}`;
+        const fullImageUrl = `${API_URL}${imagePath}`;
+        console.log("Updated image URL:", fullImageUrl);
+        setImagePreview(fullImageUrl);
+      }
+    }
+    
+    setImageFile(null);
+  } catch (error: any) {
+    console.error("Update Error:", error);
+    alert(error.response?.data?.message || "Update Failed");
+  }
+};
 
   const handleCancel = () => {
     setName(user.name);
