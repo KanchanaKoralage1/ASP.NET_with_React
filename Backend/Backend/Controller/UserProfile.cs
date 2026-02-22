@@ -116,5 +116,77 @@ namespace Backend.Controller
 
             return Ok(new { message = "Profile updated successfully", user = user  });
         }
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("changerole/{userId}")]
+        public async Task<IActionResult> ChangeUserRole(int userId, [FromBody] ChangeRoleDto roleDto)
+        {
+            var user = await _db.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Prevent changing your own role
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (currentUserId != null && int.Parse(currentUserId) == userId)
+            {
+                return BadRequest("You cannot change your own role");
+            }
+
+            // Update role
+            user.role = (Model.User.UserRole)roleDto.Role;
+            await _db.SaveChangesAsync();
+
+            return Ok(new { message = "User role updated successfully", user = user });
+        }
+
+        // ✅ DELETE USER (Admin Only)
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("delete/{userId}")]
+        public async Task<IActionResult> DeleteUser(int userId)
+        {
+            var user = await _db.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Prevent deleting your own account
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (currentUserId != null && int.Parse(currentUserId) == userId)
+            {
+                return BadRequest("You cannot delete your own account");
+            }
+
+            // Delete user's profile image if exists
+            if (!string.IsNullOrEmpty(user.Image))
+            {
+                var imagePath = Path.Combine(_env.ContentRootPath, "Images", user.Image.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+            }
+
+            // Delete related bookings by email (if any)
+            var userBookings = await _db.Bookings
+                .Where(b => b.CustomerEmail == user.email)
+                .ToListAsync();
+            
+            if (userBookings.Any())
+            {
+                _db.Bookings.RemoveRange(userBookings);
+            }
+
+            // Delete user
+            _db.Users.Remove(user);
+            await _db.SaveChangesAsync();
+
+            return Ok(new { message = "User deleted successfully" });
+        }
     }
 }

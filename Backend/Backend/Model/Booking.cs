@@ -12,6 +12,9 @@
         public int ShowTimeId { get; set; }
         public ShowTime? ShowTime { get; set; }
 
+        public int? UserId { get; set; }
+        public User? User { get; set; }
+
         public string CustomerEmail { get; set; }
 
         public DateTime Date { get; set; } // Booking Date

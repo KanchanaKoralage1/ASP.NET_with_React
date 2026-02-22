@@ -23,23 +23,14 @@ function App() {
 
         {/* Admin Page */}
 
-        <Route
-          path="/adminsidebar"
-          element={
-            <ProtectedRoute allowedRole="Admin">
-              <AdminSidebar />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/admin/usermanagement"
+         <Route
+          path="/usermanagement"
           element={
             <ProtectedRoute allowedRole="Admin">
               <UserManagement />
             </ProtectedRoute>
           }
-        />
+        /> 
 
         <Route
           path="/admin/moviemanagement"

@@ -19,5 +19,7 @@
         public DateTime DateJoined { get; set; } = DateTime.UtcNow;
 
         public UserRole role { get; set; } = UserRole.Customer;
+
+        public ICollection<Booking>? Bookings { get; set; }
     }
 }

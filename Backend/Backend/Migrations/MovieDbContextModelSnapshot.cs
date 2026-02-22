@@ -17,7 +17,7 @@ namespace Backend.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -46,11 +46,16 @@ namespace Backend.Migrations
                     b.Property<int>("ShowTimeId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MovieId");
 
                     b.HasIndex("ShowTimeId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
                 });
@@ -162,9 +167,15 @@ namespace Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Backend.Model.User", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Movie");
 
                     b.Navigation("ShowTime");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Backend.Model.ShowTime", b =>
@@ -184,6 +195,11 @@ namespace Backend.Migrations
                 });
 
             modelBuilder.Entity("Backend.Model.ShowTime", b =>
+                {
+                    b.Navigation("Bookings");
+                });
+
+            modelBuilder.Entity("Backend.Model.User", b =>
                 {
                     b.Navigation("Bookings");
                 });

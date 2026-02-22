@@ -1,8 +1,10 @@
 import React from "react";
 import NavBar from "../pages/customer/NavBar";
 import AdminSidebar from "../pages/admin/AdminSidebar";
+import { useLocation } from "react-router-dom";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
   const role = localStorage.getItem("role");
 
   // Admin Layout

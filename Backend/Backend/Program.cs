@@ -91,7 +91,7 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/Images"
 });
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 
 
