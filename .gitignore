@@ -28,6 +28,7 @@ pnpm-debug.log*
 # Build outputs
 bin/
 obj/
+publish/
 
 # Visual Studio cache folder
 .vs/
@@ -52,3 +53,11 @@ obj/
 # MacOS / Windows junk
 .DS_Store
 Thumbs.db
+
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
+
+docker-compose.yml
+docker-compose.override.yml
+
