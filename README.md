@@ -10,7 +10,8 @@ A full-stack web application for managing movie ticket bookings with separate ad
 ## 🌟 Live Demo
 
 - **Customer Portal:** http://20.212.19.81
-
+- **Demo Video:** https://bit.ly/4awRIKz
+  
 ## ✨ Features
 
 ### Customer Features
