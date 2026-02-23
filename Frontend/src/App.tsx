@@ -1,21 +1,18 @@
-import { BrowserRouter,Routes, Route, Navigate } from 'react-router-dom'
-import Signup from './auth/Signup'
-import Login from './auth/Login'
-import UserManagement from './pages/admin/UserManagement'
-import ProfilePage from './pages/customer/ProfilePage'
-import ProtectedRoute from './component/ProtectedRoute'
-import MainLayout from './component/MainLayout'
-import AdminSidebar from './pages/admin/AdminSidebar'
-import AdminMoviePage from './pages/admin/AdminMoviePage'
-import Movie from './pages/Movie'
-
-
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Signup from "./auth/Signup";
+import Login from "./auth/Login";
+import UserManagement from "./pages/admin/UserManagement";
+import ProfilePage from "./pages/customer/ProfilePage";
+import ProtectedRoute from "./component/ProtectedRoute";
+import MainLayout from "./component/MainLayout";
+import AdminSidebar from "./pages/admin/AdminSidebar";
+import AdminMoviePage from "./pages/admin/AdminMoviePage";
+import Movie from "./pages/Movie";
+import Bookings from "./pages/customer/Bookings";
+import AdminBookings from "./pages/admin/AdminBookings";
 
 function App() {
-  
-
   return (
-    
     <MainLayout>
       <Routes>
         <Route path="/signup" element={<Signup />} />
@@ -23,20 +20,29 @@ function App() {
 
         {/* Admin Page */}
 
-         <Route
+        <Route
           path="/usermanagement"
           element={
             <ProtectedRoute allowedRole="Admin">
               <UserManagement />
             </ProtectedRoute>
           }
-        /> 
+        />
 
         <Route
           path="/admin/moviemanagement"
           element={
             <ProtectedRoute allowedRole="Admin">
               <AdminMoviePage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/adminbookings"
+          element={
+            <ProtectedRoute allowedRole="Admin">
+              <AdminBookings />
             </ProtectedRoute>
           }
         />
@@ -52,19 +58,20 @@ function App() {
         />
 
         <Route
-          path="/movies"
+          path="/bookings"
           element={
-            
-              <Movie />
-            
+            <ProtectedRoute allowedRole="Customer">
+              <Bookings />
+            </ProtectedRoute>
           }
         />
 
-        <Route path="*" element={<Navigate to="/movies" replace />} />
+        <Route path="/movies" element={<Movie />} />
 
+        <Route path="*" element={<Navigate to="/movies" replace />} />
       </Routes>
     </MainLayout>
-  )
+  );
 }
 
-export default App
+export default App;

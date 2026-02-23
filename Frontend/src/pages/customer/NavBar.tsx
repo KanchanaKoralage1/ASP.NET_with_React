@@ -68,9 +68,9 @@ export default function NavBar() {
                 </Link>
 
                 <Link
-                  to="/mybookings"
+                  to="/bookings"
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 ${
-                    isActive("/mybookings")
+                    isActive("/bookings")
                       ? "bg-white text-blue-600 shadow-lg"
                       : "text-white hover:bg-white/20 backdrop-blur-sm"
                   }`}

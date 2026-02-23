@@ -16,7 +16,7 @@ export default function AdminSidebar() {
     { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
     { name: "User Management", path: "/usermanagement", icon: Users },
     { name: "Movies", path: "/admin/moviemanagement", icon: Film },
-    { name: "Bookings", path: "/admin/bookings", icon: Calendar },
+    { name: "Bookings", path: "/adminbookings", icon: Calendar },
   ];
 
   const handleLogout = () => {

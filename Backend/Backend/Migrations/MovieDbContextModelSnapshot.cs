@@ -30,12 +30,16 @@ namespace Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("CustomerEmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
@@ -43,8 +47,17 @@ namespace Backend.Migrations
                     b.Property<int>("Seats")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("ShowDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ShowTimeId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
