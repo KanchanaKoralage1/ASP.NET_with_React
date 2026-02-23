@@ -58,6 +58,6 @@ appsettings.json
 appsettings.Development.json
 appsettings.Production.json
 
-docker-compose.yml
+# Keep override for local customization, but commit main compose file
 docker-compose.override.yml
 
