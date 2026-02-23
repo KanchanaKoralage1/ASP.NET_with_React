@@ -12,7 +12,7 @@ dist-ssr/
 # Environment files
 *.local
 .env
-.env.*
+#.env.*
 
 # Logs
 logs/
