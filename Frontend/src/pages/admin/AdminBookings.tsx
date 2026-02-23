@@ -36,7 +36,8 @@ export default function AdminBookings() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
 
-  const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+  //const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+  const API_URL = import.meta.env.VITE_API_URL || "http://20.212.19.81:5000";
 
   const fetchBookings = async () => {
     try {

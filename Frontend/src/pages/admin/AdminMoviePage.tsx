@@ -16,7 +16,8 @@ export default function AdminMoviePage() {
   const fetchMovies = async () => {
     try {
       const token = localStorage.getItem("token");
-      const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+      //const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+      const API_URL = import.meta.env.VITE_API_URL || "http://20.212.19.81:5000";
       const res = await axios.get(`${API_URL}/api/movie/allmovies`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -39,7 +40,7 @@ export default function AdminMoviePage() {
     if (!confirmed) return;
 
     try {
-      const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+      const API_URL = import.meta.env.VITE_API_URL || "http://20.212.19.81:5000";
       const token = localStorage.getItem("token");
       await axios.delete(`${API_URL}/api/movie/${movieId}`, {
         headers: {
