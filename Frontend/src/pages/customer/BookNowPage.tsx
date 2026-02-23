@@ -24,7 +24,8 @@ interface Props {
 export default function BookNowPage({ isOpen, onClose, movie }: Props) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+  //const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
+  const API_URL = import.meta.env.VITE_API_URL || "http://20.212.19.81:5000";
 
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedShowtime, setSelectedShowtime] = useState("");

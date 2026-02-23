@@ -11,13 +11,14 @@ export default function AdminMoviePage() {
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL || "http://20.212.19.81:5000";
 
   // Fetch all movies
   const fetchMovies = async () => {
     try {
       const token = localStorage.getItem("token");
       //const API_URL = (import.meta.env.VITE_API_URL ?? "") as string;
-      const API_URL = import.meta.env.VITE_API_URL || "http://20.212.19.81:5000";
+      
       const res = await axios.get(`${API_URL}/api/movie/allmovies`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -40,7 +41,7 @@ export default function AdminMoviePage() {
     if (!confirmed) return;
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || "http://20.212.19.81:5000";
+      
       const token = localStorage.getItem("token");
       await axios.delete(`${API_URL}/api/movie/${movieId}`, {
         headers: {
@@ -170,7 +171,7 @@ export default function AdminMoviePage() {
                 <div className="relative h-64 bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden">
                   {movie.image ? (
                     <img
-                      src={`${import.meta.env.VITE_API_URL}${movie.image}`}
+                      src={`${API_URL}${movie.image}`}
                       alt={movie.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       onError={(e) => {
