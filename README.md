@@ -310,7 +310,7 @@ docker-compose up -d --build
 
 ## 👨‍💻 Author
 
-**Your Name**
+**Kanchana Koralage**
 - GitHub: https://github.com/KanchanaKoralage1
 - LinkedIn: https://www.linkedin.com/in/kanchana-koralage/
 - Email: itsmekanchanakoralage@gmail.com
